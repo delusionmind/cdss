@@ -1,0 +1,33 @@
+Prgrm 4: 
+
+%{
+#include<studio.h>
+#include<stdlib.h>
+int a=0,b=0,c=0,d;
+%}
+%x               COMMENT
+%%
+"//".*                        {a++;}
+"/*                            { BEGIN COMMENT;}
+<COMMENT>"*/"   {c++; BEGIN INITIAL;}
+<COMMENT>.;
+%%
+int main(int argc, char* argv[ ])
+{
+FILE*file;
+file=fopen("in.txt","r");
+If(!file) {
+printf(" error: could not open file\n");
+return 1;
+}
+yyin=file;
+ yyout=fopen(argv[2],"w");
+    yylex();
+    close(yyout);
+   Fclose(file);
+   Printf("single line comments are %d\n multiline commonents are %d\n Total comments are %d\n", a,c,a+c);
+}
+int yywrap()
+{
+return 1;
+}

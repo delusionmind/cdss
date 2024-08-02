@@ -1,0 +1,26 @@
+Prgrm 5:
+
+%{
+#include<stdio.h>
+int pc=0,sc=0;
+%}
+%%
+"Printf"{fprintf(yyout,"writef");pc++;}
+"Scanf"{fprintf (yyout,"readf");sc++;}
+%%
+int yywrap(){
+return 1;
+}
+void main(int argc,char * argv[ ]){
+FILE*file;
+    file=fopen("sampl6.txt","r");
+if(!file){
+Printf("error could not open");
+}
+yyin=file;
+yyout=fopen(argv[2],"w");
+yylex();
+fclose(file);
+fclose(yyout);
+printf("no of printf stmts=%d\n no of scanf stmts=%d\n",pc,sc);
+}
